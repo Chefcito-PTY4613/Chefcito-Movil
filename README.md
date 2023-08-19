@@ -1,2 +1,2 @@
 # Chefcito-Movil
-Proyecto FornEnd Movil de la plataforma de restorant management con el Stack Ionic, VueJS, SocketIo y Pinia 
+Proyecto Fornt-End Movil de la plataforma de restorant management con el Stack Ionic, VueJS, SocketIo y Pinia 
