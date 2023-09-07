@@ -4,49 +4,58 @@
         <ion-toolbar>
             <ion-title class="title-container" >Bienvenido, {{ user }} <img  src="https://previews.123rf.com/images/awk07/awk072009/awk07200900672/154964358-sombrero-chef-plantilla-vector-ilustraci%C3%B3n.jpg" class="icon-image" /> </ion-title> 
         </ion-toolbar>
-          <!-- <ion-toolbar>
-              <ion-buttons slot="start">
+              <!-- <ion-buttons slot="start">
                   <ion-back-button defaultHref="/" v-if="routsToShowBack"> Atras </ion-back-button>
-              </ion-buttons>
-          </ion-toolbar> -->
+              </ion-buttons> -->
       </ion-header>
       <ion-content :fullscreen="true">
-          <ion-card>
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-              <ion-card-header>
-              <ion-card-title>Card Title</ion-card-title>
-              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-              </ion-card-header>
-
-              <ion-card-content>
-              Here's a small text description for the card content. Nothing more, nothing less.
-              </ion-card-content>
-          </ion-card>
-          <ion-card>
-              <ion-button expand="block">Reserva</ion-button>
-          </ion-card>
-          <ion-card>
-              <img alt="" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-          </ion-card>
+        <ion-card>
+          <ion-card-content>
+            <ion-list class="border">
+              <ion-item>
+                <ion-thumbnail slot="start" >
+                  <img alt="Silhouette of mountains" src="https://seguridadeir.cl/images/codigo-qr.png?crc=3836424434" />
+                </ion-thumbnail>
+                <ion-list>Escanea <ion-text class="color"> Aqui</ion-text> {{ text2 }} </ion-list>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <ion-card-content>
+            <ion-list class="border">
+              <ion-item>
+                  <ion-label >{{ menu }}</ion-label>
+                  <ion-icon :icon="receiptOutline" class="icon-image"></ion-icon>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <img alt="" src="https://mimercadosaludable.com/img/leoblog/b/1/26/lg-b-banner-blog-ratatouille-villasantos.jpg" />
+        </ion-card>
+        <ion-title class="ion-text-center">{{ text }}</ion-title>
       </ion-content>
   </ion-page>
 </template>
 <script lang="ts">
 import { 
   IonContent,
-  IonButton,
   IonTitle,
   IonHeader,
   IonPage,
   IonToolbar,
   IonCard,
   IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardSubtitle,
+  IonList,
+  IonItem,
+  IonThumbnail,
+  IonLabel,
+  IonIcon
 } from '@ionic/vue';
 import { defineComponent} from 'vue';
 import { computed } from 'vue';
+import { receiptOutline} from 'ionicons/icons';
 import { useRoute } from 'vue-router';
 export default defineComponent({
   components: { 
@@ -57,18 +66,22 @@ export default defineComponent({
     IonToolbar,
     IonCard,
     IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonButton,
+    IonList,
+    IonItem,
+    IonThumbnail,
+    IonLabel,
+    IonIcon,
   },
   setup() {
+      const text2 = "El codigo qr a la entrada del restaurant"
+      const text = "Espacio de Publicidad"
+      const menu = "Revisa nuestro Menu"
       const user = "Anton Ego"
       const route = useRoute()
       const routsToShowBack = computed(() =>{
           return route.name !== 'Home'
       })
-      return{routsToShowBack,user};
+      return{routsToShowBack,user,menu,receiptOutline,text,text2};
   },
 });
 </script>
@@ -78,7 +91,9 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
 }
-
+.color {
+  color: rgb(77,48,27);
+}
 .icon-image {
   margin-left: 60px; 
   height: 52px; 
