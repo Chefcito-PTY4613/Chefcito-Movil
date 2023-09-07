@@ -1,6 +1,9 @@
 <template>
   <ion-page>
       <ion-header>
+        <ion-toolbar>
+            <ion-title class="title-container" >Bienvenido, {{ user }} <img  src="https://previews.123rf.com/images/awk07/awk072009/awk07200900672/154964358-sombrero-chef-plantilla-vector-ilustraci%C3%B3n.jpg" class="icon-image" /> </ion-title> 
+        </ion-toolbar>
           <!-- <ion-toolbar>
               <ion-buttons slot="start">
                   <ion-back-button defaultHref="/" v-if="routsToShowBack"> Atras </ion-back-button>
@@ -32,42 +35,54 @@
 import { 
   IonContent,
   IonButton,
+  IonTitle,
   IonHeader,
   IonPage,
-  // IonToolbar,
-  // IonButtons,
-  // IonBackButton,
+  IonToolbar,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle
+  IonCardSubtitle,
 } from '@ionic/vue';
 import { defineComponent} from 'vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 export default defineComponent({
   components: { 
-    IonContent, 
+    IonContent,
+    IonTitle, 
     IonHeader, 
     IonPage, 
-    // IonToolbar,
-    // IonButtons,
-    // IonBackButton,
+    IonToolbar,
     IonCard,
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
-    IonButton
+    IonButton,
   },
   setup() {
+      const user = "Anton Ego"
       const route = useRoute()
-      const  routsToShowBack = computed(() =>{
+      const routsToShowBack = computed(() =>{
           return route.name !== 'Home'
       })
-      return{routsToShowBack};
+      return{routsToShowBack,user};
   },
 });
 </script>
+<style scoped>
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon-image {
+  margin-left: 60px; 
+  height: 52px; 
+  margin-left: 10px; 
+}
+</style>
 

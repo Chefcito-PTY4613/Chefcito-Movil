@@ -6,7 +6,7 @@ import MenuPage from '../views/MenuPage.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/menu/home'
+    redirect: '/login'
   },
   {
     path: '/menu/',
@@ -22,8 +22,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/HomePage.vue')
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2Page.vue')
+        path: 'food',
+        component: () => import('@/views/FoodPage.vue')
       },
       {
         path: 'profile',

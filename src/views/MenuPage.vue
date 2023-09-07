@@ -8,9 +8,9 @@
           <ion-label>Home</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab2" href="/menu/tab2">
-          <ion-icon aria-hidden="true" :icon="ellipse" />
-          <ion-label>Tab 2</ion-label>
+        <ion-tab-button tab="food" href="/menu/food">
+          <ion-icon aria-hidden="true" :icon="restaurantOutline" />
+          <ion-label>Food</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="profile" href="/menu/profile">
@@ -24,5 +24,5 @@
 
 <script setup lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { ellipse, personOutline, homeOutline } from 'ionicons/icons';
+import { restaurantOutline, personOutline, homeOutline } from 'ionicons/icons';
 </script>

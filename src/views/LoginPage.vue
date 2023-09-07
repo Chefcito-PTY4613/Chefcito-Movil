@@ -19,7 +19,7 @@
              Iniciar Sesion 
              <ion-icon :icon="personCircleOutline"></ion-icon>
           </ion-button>
-          <ion-button type="submit" expand="block" >
+          <ion-button type="submit"  expand="block" >
              Crear Cuenta 
           </ion-button>
         </form>
@@ -61,11 +61,20 @@
         const router = useRouter();
         const user = ref('');
         const password = ref('');
+        const url = 'https://chefcito-back-production.up.railway.app/login'
         const onSubmit = async () => {
-          if(user.value == 'admin' && password.value == '1234'){
+          await fetch(url,{
+            body: JSON.stringify({
+                          "mail":user,
+                          "password":password
+                        })
+          })
+          .then(response => response.json())
+          .then(data => console.log(data)).catch(error =>{console.log(error)});
+          if(user.value == 'ja.sabando@duocuc.cl' && password.value == '4523452345'){
             const loading = await loadingController.create({
             message: 'Cargando',
-            duration: 3000,
+            duration: 1500,
           });
           loading.present();
           router.push({ name: 'Home' });
