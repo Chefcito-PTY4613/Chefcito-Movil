@@ -34,7 +34,7 @@
         <ion-card>
             <img alt="" src="https://mimercadosaludable.com/img/leoblog/b/1/26/lg-b-banner-blog-ratatouille-villasantos.jpg" />
         </ion-card>
-        <ion-title class="ion-text-center">{{ text }}</ion-title>
+        <ion-title class="ion-text-center color">{{ text }}</ion-title>
       </ion-content>
   </ion-page>
 </template>
