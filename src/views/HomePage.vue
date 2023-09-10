@@ -11,19 +11,19 @@
       <ion-content :fullscreen="true">
         <ion-card>
           <ion-card-content>
-            <ion-list class="border">
+            <ion-list class="border" lines="none">
               <ion-item>
                 <ion-thumbnail slot="start" >
                   <img alt="Silhouette of mountains" src="https://seguridadeir.cl/images/codigo-qr.png?crc=3836424434" />
                 </ion-thumbnail>
-                <ion-list>Escanea <ion-text class="color"> Aqui</ion-text> {{ text2 }} </ion-list>
+                <ion-list lines="none">Escanea <ion-text class="color"> Aqui</ion-text> {{ text2 }} </ion-list>
               </ion-item>
             </ion-list>
           </ion-card-content>
         </ion-card>
         <ion-card>
           <ion-card-content>
-            <ion-list class="border">
+            <ion-list class="border" lines="none">
               <ion-item>
                   <ion-label >{{ menu }}</ion-label>
                   <ion-icon :icon="receiptOutline" class="icon-image"></ion-icon>
@@ -51,7 +51,8 @@ import {
   IonItem,
   IonThumbnail,
   IonLabel,
-  IonIcon
+  IonIcon,
+  IonText
 } from '@ionic/vue';
 import { defineComponent} from 'vue';
 import { computed } from 'vue';
@@ -71,6 +72,7 @@ export default defineComponent({
     IonThumbnail,
     IonLabel,
     IonIcon,
+    IonText
   },
   setup() {
       const text2 = "El codigo qr a la entrada del restaurant"

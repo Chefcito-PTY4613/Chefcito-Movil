@@ -2,7 +2,7 @@
     <ion-page>
       <ion-header :translucent="true">
         <ion-toolbar>
-          <ion-title class="ion-text-center" >Chefcito</ion-title>
+          <ion-title class="ion-text-center" >Sign Up</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content :fullscreen="true">
@@ -15,11 +15,14 @@
             <ion-label position="floating"></ion-label>
             <ion-input v-model="password" label="Contraseña" labelPlacement="floating" placeholder="Escribe tu Contraseña" type="password"   required></ion-input>
           </ion-item>
-          <ion-button type="submit" expand="block" >
-             Iniciar Sesion 
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-input v-model="password2" label="Confirma tu Contraseña" labelPlacement="floating"  type="password"   required></ion-input>
+          </ion-item>
+          <ion-button type="submit"  expand="block" >
+             Crear Cuenta 
           </ion-button>
         </form>
-        <ion-title class="ion-text-center color">{{ forgot }}</ion-title>
       </ion-content>
     </ion-page>
   </template>
@@ -33,6 +36,7 @@
       IonTitle, 
       IonToolbar ,
       IonLabel,
+
       IonItem,
       IonInput,
       loadingController
@@ -53,38 +57,34 @@
         IonInput,
       },
       setup() {
-        const forgot = "¿Olvidaste Tu Constraseña?"
         const router = useRouter();
         const user = ref('');
         const password = ref('');
-        const url = 'https://chefcito-back-production.up.railway.app/login'
+        const password2 = ref('');
+        const url = 'https://chefcito-back-production.up.railway.app/signup'
         const onSubmit = async () => {
           await fetch(url,{
             body: JSON.stringify({
                           "mail":user,
-                          "password":password
+                          "password":password,
+                          "password2":password2
                         })
           })
           .then(response => response.json())
           .then(data => console.log(data)).catch(error =>{console.log(error)});
-          if(user.value == 'ja.sabando@duocuc.cl' && password.value == '4523452345'){
+          if(user.value == 'ja.sabando@duocuc.cl' && password2.value == '4523452345'){
             const loading = await loadingController.create({
             message: 'Cargando',
             duration: 1500,
           });
           loading.present();
-          router.push({ name: 'Home' });
+          router.push({ name: 'Login' });
           }
           else alert('Datos Incorrectos')
         }
-        return{personCircleOutline,onSubmit,user,password,router,forgot};
+        return{personCircleOutline,onSubmit,user,password,password2,router};
       },
     });
   </script>
-  <style scoped>
-  .color {
-    color: rgb(77,48,27);
-  }
-  </style>
   
   

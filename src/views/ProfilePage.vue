@@ -8,9 +8,11 @@
               <ion-list class="border">
                 <ion-item>
                   <ion-thumbnail slot="start" >
-                    <ion-icon :icon="personCircleOutline" class="icon-image"></ion-icon>
+                    <ion-avatar>
+                      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                    </ion-avatar>
                   </ion-thumbnail>
-                  <ion-list>
+                  <ion-list lines="none">
                     <ion-label >{{ user }}</ion-label>
                     <ion-label >{{ email }}</ion-label>
                   </ion-list>
@@ -44,7 +46,8 @@
     IonThumbnail,
     IonLabel,
     IonIcon,
-    IonButton
+    IonButton,
+    IonAvatar
   } from '@ionic/vue';
   import { defineComponent} from 'vue';
   import { personCircleOutline,walletOutline,settingsOutline } from 'ionicons/icons';
@@ -60,7 +63,8 @@
       IonCard,
       IonLabel,
       IonIcon,
-      IonButton
+      IonButton,
+      IonAvatar
     },
     setup() {
         const user = "Anton Ego"
