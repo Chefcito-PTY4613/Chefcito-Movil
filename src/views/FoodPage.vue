@@ -23,8 +23,8 @@
             <ion-card-title>Menu del dia</ion-card-title>
           </ion-card-header>
           <ion-card-content v-for="(plato) in platos" :key="plato" >
-            <ion-list lines="none"> 
-              <ion-item >
+            <ion-list> 
+              <ion-item>
                 <ion-thumbnail slot="end">
                   <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
                 </ion-thumbnail>
@@ -48,7 +48,7 @@
             <ion-card-title>Entradas</ion-card-title>
           </ion-card-header>
           <ion-card-content v-for="(plato) in platos" :key="plato" >
-            <ion-list lines="none"> 
+            <ion-list> 
               <ion-item >
                 <ion-thumbnail slot="end">
                   <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
@@ -73,7 +73,7 @@
             <ion-card-title>Platos Principales</ion-card-title>
           </ion-card-header>
           <ion-card-content v-for="(plato) in platos" :key="plato" >
-            <ion-list lines="none"> 
+            <ion-list > 
               <ion-item >
                 <ion-thumbnail slot="end">
                   <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
@@ -138,7 +138,7 @@ export default defineComponent({
     }
   },
   setup() {
-    const segment = ref("Menu")
+    const segment = ref("menu")
     const platos = ({
       nombre: 'Lasaña Boloñesa',
       precio: '$8.000',

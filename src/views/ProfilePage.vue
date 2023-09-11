@@ -5,7 +5,7 @@
         <ion-content :fullscreen="true">
           <ion-card>
             <ion-card-content>
-              <ion-list class="border">
+              <ion-list class="border" lines="none">
                 <ion-item>
                   <ion-thumbnail slot="start" >
                     <ion-avatar>
