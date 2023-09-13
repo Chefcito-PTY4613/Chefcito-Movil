@@ -53,31 +53,77 @@
         IonInput,
       },
       setup() {
-        const forgot = "¿Olvidaste Tu Constraseña?"
+        // const forgot = "¿Olvidaste Tu Constraseña?"
+        // const router = useRouter();
+        // const user = ref('');
+        // const password = ref('');
+        // const url = 'https://chefcito-back-production.up.railway.app/login'
+        // const onSubmit = async () => {
+        //   await fetch(url,{
+        //     body: JSON.stringify({
+        //                   "mail":user,
+        //                   "password":password
+        //                 })
+        //   })
+        //   .then(response => response.json())
+        //   .then(data => console.log(data)).catch(error =>{console.log(error)});
+        //   if(user.value == 'ja.sabando@duocuc.cl' && password.value == '4523452345'){
+        //     const loading = await loadingController.create({
+        //     message: 'Cargando',
+        //     duration: 1500,
+        //   });
+        //   loading.present();
+        //   router.push({ name: 'Home' });
+        //   }
+        //   else alert('Datos Incorrectos')
+        // }
+        const forgot = "¿Olvidaste Tu Constraseña?";
         const router = useRouter();
         const user = ref('');
         const password = ref('');
-        const url = 'https://chefcito-back-production.up.railway.app/login'
+        const url = 'https://chefcito-back-production.up.railway.app/login';
         const onSubmit = async () => {
-          await fetch(url,{
-            body: JSON.stringify({
-                          "mail":user,
-                          "password":password
-                        })
-          })
-          .then(response => response.json())
-          .then(data => console.log(data)).catch(error =>{console.log(error)});
-          if(user.value == 'ja.sabando@duocuc.cl' && password.value == '4523452345'){
+          try {
             const loading = await loadingController.create({
             message: 'Cargando',
             duration: 1500,
-          });
-          loading.present();
-          router.push({ name: 'Home' });
+            });
+            loading.present();
+            const response = await fetch(url, {
+              method: 'POST', 
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                mail: user.value,
+                password: password.value,
+              }),
+            });
+            if (!response.ok) {
+              throw new Error('La solicitud no fue exitosa');
+            }
+            const data = await response.json();
+            console.log(data);
+            
+            if (user.value  && password.value ) {
+              router.push({ name: 'Home' });
+            } else {
+              alert('Datos Incorrectos');
+            }
+            loading.present();
+          } catch (error) {
+            // console.error('Error al hacer la solicitud:', error);
+            alert('Error al hacer la solicitud');
           }
-          else alert('Datos Incorrectos')
-        }
-        return{personCircleOutline,onSubmit,user,password,router,forgot};
+        };
+        return {
+          personCircleOutline,
+          onSubmit,
+          user,
+          password,
+          router,
+          forgot,
+        };
       },
     });
   </script>
@@ -87,4 +133,5 @@
   }
   </style>
   
-  
+
+

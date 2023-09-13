@@ -9,7 +9,7 @@
         <form @submit.prevent="onSubmit">
           <ion-item>
             <ion-label position="floating"></ion-label>
-            <ion-input v-model="user" label="Usuario" labelPlacement="floating" placeholder="Escribe tu Usuario" type="text" required></ion-input>
+            <ion-input v-model="email" label="Email" labelPlacement="floating" placeholder="Escribe tu email" type="email" required></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating"></ion-label>
@@ -17,7 +17,11 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating"></ion-label>
-            <ion-input v-model="password2" label="Confirma tu Contraseña" labelPlacement="floating"  type="password"   required></ion-input>
+            <ion-input v-model="name" label="Nombre" labelPlacement="floating"  type="text"   required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-input v-model="lastName" label="Apellido" labelPlacement="floating"  type="text"   required></ion-input>
           </ion-item>
           <ion-button type="submit"  expand="block" >
              Crear Cuenta 
@@ -58,31 +62,48 @@
       },
       setup() {
         const router = useRouter();
-        const user = ref('');
+        const email = ref('');
         const password = ref('');
-        const password2 = ref('');
-        const url = 'https://chefcito-back-production.up.railway.app/signup'
+        const name = ref('');
+        const lastName = ref('');
+        const url = 'https://chefcito-back-production.up.railway.app/signup';
         const onSubmit = async () => {
-          await fetch(url,{
-            body: JSON.stringify({
-                          "mail":user,
-                          "password":password,
-                          "password2":password2
-                        })
-          })
-          .then(response => response.json())
-          .then(data => console.log(data)).catch(error =>{console.log(error)});
-          if(user.value == 'ja.sabando@duocuc.cl' && password2.value == '4523452345'){
+          try {
             const loading = await loadingController.create({
             message: 'Cargando',
             duration: 1500,
-          });
-          loading.present();
-          router.push({ name: 'Login' });
+            });
+            loading.present();
+            const response = await fetch(url, {
+              method: 'POST', 
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                mail: email.value,
+                password: password.value,
+                name:name.value,
+                lastName:lastName.value
+              }),
+            });
+            if (!response.ok) {
+              throw new Error('La solicitud no fue exitosa');
+            }
+            const data = await response.json();
+            console.log(data);
+            
+            if (email.value  && password.value && name.value && lastName.value ) {
+              router.push({ name: 'Login' });
+            } else {
+              alert('Datos Incorrectos');
+            }
+            loading.present();
+          } catch (error) {
+            // console.error('Error al hacer la solicitud:', error);
+            alert('Error al hacer la solicitud');
           }
-          else alert('Datos Incorrectos')
-        }
-        return{personCircleOutline,onSubmit,user,password,password2,router};
+        };
+        return{personCircleOutline,onSubmit,email,password,router,name,lastName};
       },
     });
   </script>
