@@ -27,6 +27,8 @@
              Crear Cuenta 
           </ion-button>
         </form>
+        <ion-title class="ion-text-center ">Estas listo con tu registro</ion-title>
+        <ion-title class="ion-text-center color" router-link="/login"> Tienes Cuenta </ion-title>
       </ion-content>
     </ion-page>
   </template>
@@ -40,7 +42,6 @@
       IonTitle, 
       IonToolbar ,
       IonLabel,
-
       IonItem,
       IonInput,
       loadingController
@@ -49,6 +50,7 @@
     import { personCircleOutline } from 'ionicons/icons';
     import { useRouter } from 'vue-router';
     export default defineComponent({
+      name: 'SignUpPage',
       components: { 
         IonButton, 
         IonContent, 
@@ -99,7 +101,7 @@
             }
             loading.present();
           } catch (error) {
-            // console.error('Error al hacer la solicitud:', error);
+            console.error('Error al hacer la solicitud:', error);
             alert('Error al hacer la solicitud');
           }
         };
@@ -107,5 +109,10 @@
       },
     });
   </script>
+   <style scoped>
+   .color {
+     color: rgb(77,48,27);
+   }
+   </style>
   
   

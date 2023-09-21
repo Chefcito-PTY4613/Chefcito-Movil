@@ -9,17 +9,19 @@
         <form @submit.prevent="onSubmit">
           <ion-item>
             <ion-label position="floating"></ion-label>
-            <ion-input v-model="user" label="Usuario" labelPlacement="floating" placeholder="Escribe tu Usuario" type="text" required></ion-input>
+            <ion-input v-model="email" label="Email" labelPlacement="floating" placeholder="Escribe tu Email" type="text" required></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating"></ion-label>
             <ion-input v-model="password" label="Contraseña" labelPlacement="floating" placeholder="Escribe tu Contraseña" type="password"   required></ion-input>
           </ion-item>
+          <ion-title class="ion-text-end color">{{ forgot }}</ion-title>
           <ion-button type="submit" expand="block" >
              Iniciar Sesion 
           </ion-button>
         </form>
-        <ion-title class="ion-text-center color">{{ forgot }}</ion-title>
+        <ion-title class="ion-text-center ">No Tienes cuenta ?</ion-title>
+        <ion-title class="ion-text-center color" router-link="/signup"> Crear Cuenta </ion-title>
       </ion-content>
     </ion-page>
   </template>
@@ -35,12 +37,13 @@
       IonLabel,
       IonItem,
       IonInput,
-      loadingController
+      loadingController,
     } from '@ionic/vue';
     import { defineComponent,ref} from 'vue';
     import { personCircleOutline } from 'ionicons/icons';
     import { useRouter } from 'vue-router';
     export default defineComponent({
+      name: "LoginPage",
       components: { 
         IonButton, 
         IonContent, 
@@ -53,33 +56,9 @@
         IonInput,
       },
       setup() {
-        // const forgot = "¿Olvidaste Tu Constraseña?"
-        // const router = useRouter();
-        // const user = ref('');
-        // const password = ref('');
-        // const url = 'https://chefcito-back-production.up.railway.app/login'
-        // const onSubmit = async () => {
-        //   await fetch(url,{
-        //     body: JSON.stringify({
-        //                   "mail":user,
-        //                   "password":password
-        //                 })
-        //   })
-        //   .then(response => response.json())
-        //   .then(data => console.log(data)).catch(error =>{console.log(error)});
-        //   if(user.value == 'ja.sabando@duocuc.cl' && password.value == '4523452345'){
-        //     const loading = await loadingController.create({
-        //     message: 'Cargando',
-        //     duration: 1500,
-        //   });
-        //   loading.present();
-        //   router.push({ name: 'Home' });
-        //   }
-        //   else alert('Datos Incorrectos')
-        // }
         const forgot = "¿Olvidaste Tu Constraseña?";
         const router = useRouter();
-        const user = ref('');
+        const email = ref('');
         const password = ref('');
         const url = 'https://chefcito-back-production.up.railway.app/login';
         const onSubmit = async () => {
@@ -95,8 +74,8 @@
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                mail: user.value,
-                password: password.value,
+                mail: email.value,
+                password: password.value
               }),
             });
             if (!response.ok) {
@@ -105,21 +84,24 @@
             const data = await response.json();
             console.log(data);
             
-            if (user.value  && password.value ) {
-              router.push({ name: 'Home' });
+            if (email.value  && password.value ) {
+              const fullUsername = email.value;
+              const clearUsername= fullUsername.indexOf('@');
+              const username = clearUsername !== -1 ? fullUsername.slice(0, clearUsername) : fullUsername;
+              router.push({ name: 'MenuHome', params: { username: username }});
             } else {
               alert('Datos Incorrectos');
             }
             loading.present();
           } catch (error) {
-            // console.error('Error al hacer la solicitud:', error);
+            console.error('Error al hacer la solicitud:', error);
             alert('Error al hacer la solicitud');
           }
         };
         return {
           personCircleOutline,
           onSubmit,
-          user,
+          email,
           password,
           router,
           forgot,

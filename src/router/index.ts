@@ -1,37 +1,13 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import LoginPage from '../views/LoginPage.vue'
+import LoginPage from '../views/Sesion/LoginPage.vue'
+import SignUpPage from '../views/Sesion/SignUpPage.vue'
 import MenuPage from '../views/MenuPage.vue'
-import SignUpPage from '../views/SignUpPage.vue'
-
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     redirect: '/login'
-  },
-  {
-    path: '/menu/',
-    component: MenuPage,
-    children: [
-      {
-        path: '',
-        name: 'Home',
-        redirect: '/menu/home'
-      },
-      {
-        path: 'home',
-        component: () => import('@/views/HomePage.vue')
-      },
-      {
-        path: 'food',
-        component: () => import('@/views/FoodPage.vue')
-      },
-      {
-        path: 'profile',
-        component: () => import('@/views/ProfilePage.vue')
-      }
-    ]
   },
   {
     path: '/login',
@@ -42,12 +18,38 @@ const routes: Array<RouteRecordRaw> = [
     path: '/signup',
     name: 'SignUp',
     component: SignUpPage
+  },
+  {
+    path: '/menu/:username',
+    component: MenuPage,
+    children: [
+      {
+        path: '',
+        redirect: to => {
+          return { name: 'MenuHome', params: { username: to.params.username } }
+        }
+      },
+      {
+        path: 'home',
+        name: 'MenuHome',
+        component: () => import('@/views/HomePage.vue')
+      },
+      {
+        path: 'food',
+        name: 'MenuFood',
+        component: () => import('@/views/FoodPage.vue')
+      },
+      {
+        path: 'profile',
+        name: 'MenuProfile',
+        component: () => import('@/views/ProfilePage.vue')
+      }
+    ]
   }
-  
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 

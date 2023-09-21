@@ -1,5 +1,7 @@
 {
-    "name": "Chefcito-Movil",
-    "integrations": {},
-    "type": "vue"
+  "name": "prueba",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
 }
