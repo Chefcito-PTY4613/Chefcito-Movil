@@ -1,29 +1,37 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <!-- <ion-header :translucent="true">
       <ion-toolbar>
         <ion-title class="ion-text-center">Chefcito</ion-title>
       </ion-toolbar>
-    </ion-header>
+    </ion-header> -->
     <ion-content :fullscreen="true">
       <ion-avatar>
         <img src="https://ionicframework.com/docs/img/demos/avatar.svg">
       </ion-avatar>
-      <form @submit.prevent="onSubmit">
+      <form @submit.prevent="onSubmit" id="login">
         <ion-item>
           <ion-label position="floating"></ion-label>
-          <ion-input v-model="email" label="Email" labelPlacement="floating" placeholder="Escribe tu Email" type="text"
-            required></ion-input>
+          <v-field name="email" v-slot="{ field }">
+            <ion-input v-model="email" label="Email" labelPlacement="floating" placeholder="Escribe tu Email" type="text"
+              id="email" v-bind="field" required>
+            </ion-input>
+          </v-field>
         </ion-item>
+        <v-error-message name="password" class="error" />
         <ion-item>
           <ion-label position="floating"></ion-label>
-          <ion-input v-model="password" label="Contraseña" labelPlacement="floating" placeholder="Escribe tu Contraseña"
-            type="password" required></ion-input>
+          <v-field name="password" v-slot="{ field }">
+            <ion-input v-model="password" label="Contraseña" labelPlacement="floating" placeholder="Escribe tu Contraseña"
+              type="password" id="password" required>
+            </ion-input>
+          </v-field>
         </ion-item>
+        <v-error-message />
         <ion-text class="ion-text-end color" router-link="/recuperar">
-          <h6>{{ forgot }}</h6>
+          <h6>¿Olvidaste Tu Constraseña?</h6>
         </ion-text>
-        <ion-button type="submit" expand="block">
+        <ion-button type="submit" expand="block" value="Enviar">
           Iniciar Sesion
         </ion-button>
       </form>
@@ -50,11 +58,14 @@ import {
   IonInput,
   loadingController,
   IonAvatar,
-  IonText
+  IonText,
+
 } from '@ionic/vue';
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
+import { ref } from 'vue';
 import { personCircleOutline } from 'ionicons/icons';
 import { useRouter } from 'vue-router';
+import * as V from "vee-validate/dist/vee-validate";
 export default defineComponent({
   name: "LoginPage",
   components: {
@@ -68,15 +79,19 @@ export default defineComponent({
     IonItem,
     IonInput,
     IonAvatar,
-    IonText
+    IonText,
+    VField: V.Field,
+    VForm: V.Form,
+    VErrorMesasage: V.ErrorMessage
+  },
+  methods: {
   },
   setup() {
-    const forgot = "¿Olvidaste Tu Constraseña?";
     const router = useRouter();
     const email = ref('');
     const password = ref('');
     const url = 'https://chefcito-back-production.up.railway.app/login';
-    const onSubmit = async () => {
+    const onSubmit = async (data: any) => {
       try {
         const loading = await loadingController.create({
           message: 'Cargando',
@@ -121,7 +136,6 @@ export default defineComponent({
       email,
       password,
       router,
-      forgot,
     };
   },
 });
@@ -136,6 +150,14 @@ ion-avatar {
   text-align: center !important;
   display: flex !important;
   justify-content: center !important;
+}
+
+.error {
+  color: red;
+  font-size: smaller;
+  font-style: italic;
+  font-weight: 500;
+  margin-top: 4px;
 }
 </style>
 

@@ -14,7 +14,7 @@
         <ion-card-header v-if="foodType.name">
           <ion-card-title>{{ foodType.name }}</ion-card-title>
           <ion-list>
-            <ion-item v-for="(item) in  foods " :key="item.id">
+            <ion-item v-for="(item) in  foods " :key="item.type">
               <ion-button slot="end" vertical="bottom" horizontal="end" shape="round" fill="outline">
                 <ion-icon :icon="addOutline"></ion-icon>
               </ion-button>
@@ -79,12 +79,13 @@ import {
   IonButtons,
   IonModal,
   IonTitle,
-  IonImg
+  IonImg,
+  IonBackButton
 
 } from '@ionic/vue';
 import { useRoute } from 'vue-router';
 import { cartOutline, addOutline } from 'ionicons/icons';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import axios from 'axios';
 import { FoodType, Food } from '../interface/interfaces';
 
@@ -111,7 +112,8 @@ export default defineComponent({
     IonButtons,
     IonModal,
     IonTitle,
-    IonImg
+    IonImg,
+    IonBackButton
   },
   data() {
     return {
@@ -153,11 +155,14 @@ export default defineComponent({
     },
   },
   setup() {
+    const routsToShowBack = computed(() => {
+      return useRoute.name !== 'MenuFood'
+    })
     const isOpen = ref(false);
     const setOpen = (open: boolean) => (isOpen.value = open);
     const router = useRoute()
     const username = router.params.username;
-    return { username, cartOutline, addOutline, setOpen, isOpen };
+    return { username, cartOutline, addOutline, setOpen, isOpen, routsToShowBack };
   },
 });
 </script>

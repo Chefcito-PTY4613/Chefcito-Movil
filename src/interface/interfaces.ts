@@ -17,7 +17,7 @@ export interface Food {
     desc: string;
     price: number;
     img: string;
-    type: [FoodType];
+    type: number;
     createdAt: Date;
     updatedAt: Date;
 }

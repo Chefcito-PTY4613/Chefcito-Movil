@@ -2,6 +2,9 @@
     <ion-page>
         <ion-header :translucent="true">
             <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-back-button defaultHref="/" v-if="routsToShowBack"> Atras </ion-back-button>
+                </ion-buttons>
                 <ion-title class="ion-text-center">Recover Password</ion-title>
             </ion-toolbar>
         </ion-header>
@@ -22,11 +25,14 @@ import {
     IonItem,
     IonInput,
     IonAvatar,
-    IonText
+    IonText,
+    IonButtons,
+    IonBackButton
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 export default defineComponent({
-    name: "LoginPage",
     components: {
         IonButton,
         IonContent,
@@ -38,9 +44,16 @@ export default defineComponent({
         IonItem,
         IonInput,
         IonAvatar,
-        IonText
+        IonText,
+        IonButtons,
+        IonBackButton
     },
     setup() {
+        const route = useRoute()
+        const routsToShowBack = computed(() => {
+            return route.name !== 'Login'
+        })
+        return { routsToShowBack };
     },
 });
 </script>

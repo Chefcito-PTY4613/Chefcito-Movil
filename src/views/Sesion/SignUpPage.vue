@@ -52,11 +52,14 @@ import {
   IonInput,
   loadingController,
   IonText,
-  alertController
+  alertController,
+  IonButtons,
+  IonBackButton
 } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { personCircleOutline } from 'ionicons/icons';
 import { useRouter } from 'vue-router';
+import { computed } from 'vue';
 export default defineComponent({
   components: {
     IonButton,
@@ -69,6 +72,8 @@ export default defineComponent({
     IonItem,
     IonInput,
     IonText,
+    IonButtons,
+    IonBackButton
   },
   setup() {
     const router = useRouter();
