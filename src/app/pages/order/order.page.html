@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Tu orden</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" (ionRefresh)="doRefresh($event)" onchange="">
+  <ion-refresher slot="fixed">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngIf="orders">
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let groupedOrder of groupOrdersByFoodName(orders)">
+          <ion-thumbnail slot="start">
+            <img [src]="groupedOrder[0].food.img" alt="{{ groupedOrder[0].food.name }}" />
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ groupedOrder[0].food.name }}</h2>
+            <p>Comentario: {{ groupedOrder[0].desc }}</p>
+            <ion-chip [color]="getStatusInfo(groupedOrder[0].status).color">{{ getStatusInfo(groupedOrder[0].status).name }}</ion-chip>
+            <p>Cantidad: {{ calculateTotalQuantity(groupedOrder) }}</p>
+            <p>Precio total: ${{ calculateTotalPrice(groupedOrder) }} pesos</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>  
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
+    <ion-fab-button>
+      <ion-icon name="chevron-forward-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="pay()" [disabled]="!allOrdersDelivered()" [class.success]="allOrdersDelivered()">
+        <ion-icon name="bag-check-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="help()" >
+        <ion-icon name="help-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

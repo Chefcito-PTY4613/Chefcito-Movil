@@ -1,0 +1,69 @@
+<ion-content [fullscreen]="true"(ionRefresh)="doRefresh($event)" >
+  <ion-refresher slot="fixed">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card class="ion-activatable" *ngIf="mostrarCarta && mesaEncontrada">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Reserva</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list class="border" lines="none">
+        <ion-item>
+          <ion-list lines="none" >
+            <!-- <ion-label color="primary">Mesa reservada: {{ table }}</ion-label> -->
+            <ion-label>Número de mesa: {{ mesaEncontrada.num }}</ion-label>
+            <ion-label>Cantidad de maxima: {{ mesaEncontrada.size }} personas</ion-label>
+            <ion-label >Activa: <ion-icon [name]="active ? 'radio-button-on-outline' : 'radio-button-off'" [color]="active ? 'success' : 'danger'"></ion-icon></ion-label>
+            <ion-label *ngIf="user"> Usuario: {{user.name}} {{user.lastName}}</ion-label>
+            <ion-label >Fecha de reserva:{{fechaA}} </ion-label>
+          </ion-list>
+          <ion-icon name="trash-outline" slot="end" (click)="cancelReservation()" color="danger"></ion-icon>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card>
+  <ion-segment [(ngModel)]="seleccionado" (ionChange)="cambiarSegmento($event)" mode="ios">
+    <ion-segment-button *ngFor="let tipo of foodTypes" [value]="tipo._id">
+      <ion-label>{{ tipo.name }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-searchbar [(ngModel)]="searchTerm" placeholder="Buscar" color="primary"></ion-searchbar>
+  <ion-card *ngIf="seleccionado">
+    <ion-card-content>
+      <ng-container *ngFor="let foodType of foodTypes">
+        <ng-container *ngIf="seleccionado === foodType._id">
+          <h2>{{ foodType.name }}</h2>
+          <ion-card *ngIf="!ProductosDisponibles()" color="secondary">
+            <ion-card-header>
+              <ion-card-title>No hay productos disponibles</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+          <ion-list>
+            <ion-item *ngFor="let food of filterFoodsByName(foodsByType[foodType._id], searchTerm)">
+              <ion-thumbnail slot="start">
+                <ion-img [src]="food.img" alt="{{ food.name }}"></ion-img>
+              </ion-thumbnail>
+              <ion-label>
+                <h2>{{ food.name }}</h2>
+                <p color="primary" >Precio: {{ food.price }}</p>
+                <p>{{ food.desc }}</p>
+                <ion-button (click)="verDetalles(food._id)" expand="full">
+                  Ver detalles
+                </ion-button>
+              </ion-label>
+              <ion-button shape="round" (click)="agregarAlCarrito(food)">
+                <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ng-container>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
+    <ion-fab-button  (click)="abrirModal()" >
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,40 @@
+.color {
+    color: rgb(77, 48, 27);
+}
+
+.img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container {
+    text-align: center;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+// swiper-container {
+//     width: 100%;
+//     height: 100%;
+// }
+
+swiper-slide {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+}

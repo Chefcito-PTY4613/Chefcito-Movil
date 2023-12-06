@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Carrito de Compras</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="carrito.length > 0">
+    <ion-item *ngFor="let item of carrito">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ item.product.name }}</ion-card-title>
+          <ion-card-subtitle>{{ item.product.desc }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list lines="none">
+            <ion-item>
+              <ion-thumbnail slot="start">
+                <ion-img [src]="item.product.img" alt="{{ item.product.name }}"></ion-img>
+              </ion-thumbnail>
+              <ion-label color="primary"> ${{ item.product.price }} pesos</ion-label>
+              <ion-icon *ngIf="item.quantity === 1" name="trash-outline" color="danger" (click)="eliminarDelCarrito(item.product)" ></ion-icon>
+            <ion-icon *ngIf="item.quantity > 1" name="remove-circle-outline" (click)="disminuirCantidad(item)" color="secondary"></ion-icon>
+            <span color="primary">{{ item.quantity }}</span>
+            <ion-icon name="add-circle-outline" (click)="aumentarCantidad(item)" color="secondary"></ion-icon>
+            </ion-item>
+            <ion-label color="primary">Comentario: {{ item.comment || 'Ninguno' }}</ion-label>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>    
+    <ion-row class="ion-margin">
+      <ion-col #swipeColumn [style.background-color]="ordenado ? 'var(--ion-color-success)' : 'var(--ion-color-primary)'">
+        <div align="center">
+          <ion-text color="light">{{ ordenado ? 'Ordenado' : 'Ordenar' }}</ion-text>
+        </div>
+        <ion-fab-button #swipeButton color="light">
+          <ion-icon class="left" name="chevron-forward-outline"></ion-icon>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          <ion-icon class="right" name="chevron-forward-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+  <ion-card color="secondary" *ngIf="carrito.length === 0">
+    <ion-card-header>
+      <ion-card-title>El carrito está vacío</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-title class="ion-text-center">
+          Perfil de Ususario
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content :fullscreen="true">
+  <ion-card class="ion-activatable" >
+    <ion-card-content>
+      <ion-list class="border" lines="none">
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-avatar>
+              <img alt="Silhouette of a person's head" src="../../../assets/icon/favicon.png" />
+            </ion-avatar>
+          </ion-thumbnail>
+          <ion-list lines="none" *ngIf="user">
+            <ion-label> {{user.name}} </ion-label>
+            <ion-label> {{user.lastName}} </ion-label>
+            <ion-label> {{user.mail}} </ion-label>
+            {{ user.verified ? 'Usuario verificado' : 'Usuario no verificado' }}
+          </ion-list>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card>
+    <div class="button-container">
+    <ion-button fill="outline" (click)="person()">
+      <ion-icon name="person-circle-outline" aria-hidden="true"></ion-icon>
+    </ion-button>
+    <ion-button fill="outline" (click)="wallet()">
+      <ion-icon name="wallet-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="outline" (click)="settings()">
+      <ion-icon name="settings-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="outline" (click)="onLogoutClick()" color="danger">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <!-- <ion-card class="ion-activatable" *ngIf="user && !user.verified">
+    <ion-card-header>
+      <ion-card-title>Verificaccion</ion-card-title>
+      <ion-card-subtitle>Quieres verificar tu usuario?</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Verifica tu cuenta en nuestra app para una experiencia segura y exclusiva.
+      <p></p>
+    </ion-card-content>
+    <ion-button class="custom-card-content" fill="clear" (click)="verify()">Verificar</ion-button>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card> -->
+  <!-- <ion-card class="ion-activatable" >
+    <ion-card-content>
+      <ion-list class="border" lines="none">
+        <ion-item>
+          <ion-toggle mode="ios" [checked]="darkMode" (ionChange)="toggleDarkMode()" justify="space-between">Modo Oscuro</ion-toggle>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card> -->
+</ion-content>
