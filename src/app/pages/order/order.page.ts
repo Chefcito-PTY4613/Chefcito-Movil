@@ -15,7 +15,6 @@ import socket from '../../componets/socket';
   template: ``
 })
 export class OrderPage implements OnInit, OnDestroy, OnChanges {
-  @Input() Order!: boolean;
 
   token: any;
   sharedDataService: SharedService;
@@ -30,8 +29,15 @@ export class OrderPage implements OnInit, OnDestroy, OnChanges {
     sharedDataService: SharedService,
     private alertController: AlertController,
   ) {
+
+
     this.sharedDataService = sharedDataService;
     this.saleId = localStorage.getItem('saleId');
+    // socket.on("updatedOrder", (order: Order) => {
+    //   console.log('Conectando .... ', this.orders);
+    //   this.orders = [order, ...this.orders.filter(({ _id }) => !(_id !== order._id))]
+    //   console.log('Conectando .... ', this.orders);
+    // });
   }
   ngOnChanges(changes: SimpleChanges): void {
   }
@@ -40,11 +46,6 @@ export class OrderPage implements OnInit, OnDestroy, OnChanges {
   }
 
   ionViewWillEnter() {
-    socket.on("updatedOrder", (order: Order) => {
-      console.log('Conectando .... ', this.orders);
-      this.orders = [order, ...this.orders.filter(({ _id }) => !(_id !== order._id))]
-      console.log('Conectando .... ', this.orders);
-    });
     this.order();
   }
 

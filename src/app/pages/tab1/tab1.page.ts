@@ -12,6 +12,7 @@ import { register } from 'swiper/element/bundle';
 register();
 import socket from '../../componets/socket';
 
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -44,10 +45,10 @@ export class Tab1Page implements OnInit {
     private ngZone: NgZone,
     private foodService: FoodService
   ) {
-    socket.on("updatedOrder", (order: Order) => {
-      console.log('Conectando .... ', order);
-      this.orders = [order, ...this.orders.filter(({ _id }) => !(_id !== order._id))]
-    });
+    // socket.on("updatedOrder", (order: Order) => {
+    //   console.log('Conectando .... ', order);
+    //   this.orders = [order, ...this.orders.filter(({ _id }) => !(_id !== order._id))]
+    // });
     this.user = this.userService.getUser();
     this.sharedDataService = sharedDataService;
     this.saleId = localStorage.getItem('saleId');
